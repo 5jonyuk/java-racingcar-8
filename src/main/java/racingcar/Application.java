@@ -26,6 +26,8 @@ public class Application {
             printCars(cars);
             System.out.println();
         }
+
+        findWinner(cars);
     }
 
     private static List<String> splitCarName(String input) {
@@ -66,6 +68,14 @@ public class Application {
         for (Car car : cars) {
             moveCarIfPossible(car);
         }
+    }
+
+    private static void findWinner(List<Car> cars) {
+        int maxPosition = cars.stream().mapToInt(Car::getPosition).max().orElse(0);
+        List<Car> winner = cars.stream().filter(car -> car.getPosition() == maxPosition).toList();
+        String winnerName = winner.stream().map(Car::getName).reduce((a, b) -> a + ", " + b).orElse("");
+
+        System.out.println("최종 우승자 : " + winnerName);
     }
 
     private static void validateCarNameInputRegex(String input) {
