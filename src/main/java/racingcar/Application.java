@@ -1,6 +1,7 @@
 package racingcar;
 
 import camp.nextstep.edu.missionutils.Console;
+import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,13 @@ public class Application {
         List<String> names = splitCarName(input);
         List<Car> cars = createCars(names);
 
+        for (int i = 0; i < tryNum; i++) {
+            int randNum = Randoms.pickNumberInRange(0, 9);
+            if(canMove(randNum)){
+                // 게임실행 로직 실행
+            }
+        }
+
     }
     private static List<String> splitCarName(String input){
         List<String> names = new ArrayList<>();
@@ -34,6 +42,10 @@ public class Application {
         }
         return cars;
     }
+    private static boolean canMove(int randNum) {
+        return randNum >= 4;
+    }
+
     private static void validateCarNameInputRegex(String input){
         if(!input.contains(",")){
             throw new IllegalArgumentException("자동차 이름은 쉼표(,)로 구분되어야 합니다.");
