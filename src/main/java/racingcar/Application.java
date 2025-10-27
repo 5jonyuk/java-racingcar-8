@@ -30,7 +30,7 @@ public class Application {
         findWinner(cars);
     }
 
-    private static List<String> splitCarName(String input) {
+     static List<String> splitCarName(String input) {
         List<String> names = new ArrayList<>();
         for (String name : input.split(",")) {
             names.add(name.trim());
@@ -38,7 +38,7 @@ public class Application {
         return names;
     }
 
-    private static List<Car> createCars(List<String> names) {
+     static List<Car> createCars(List<String> names) {
         List<Car> cars = new ArrayList<>();
         for (String name : names) {
             validateCarNamesNotBlank(name);
@@ -47,30 +47,30 @@ public class Application {
         return cars;
     }
 
-    private static boolean canMove(int randNum) {
+     static boolean canMove(int randNum) {
         return randNum >= 4;
     }
 
-    private static void printCars(List<Car> cars) {
+     static void printCars(List<Car> cars) {
         for (Car car : cars) {
             System.out.println(car.getName() + " : " + "-".repeat(car.getPosition()));
         }
     }
 
-    private static void moveCarIfPossible(Car car) {
+     static void moveCarIfPossible(Car car) {
         int randNum = Randoms.pickNumberInRange(0, 9);
         if (canMove(randNum)) {
             car.moveForward();
         }
     }
 
-    private static void playGame(List<Car> cars) {
+     static void playGame(List<Car> cars) {
         for (Car car : cars) {
             moveCarIfPossible(car);
         }
     }
 
-    private static void findWinner(List<Car> cars) {
+     static void findWinner(List<Car> cars) {
         int maxPosition = cars.stream().mapToInt(Car::getPosition).max().orElse(0);
         List<Car> winner = cars.stream().filter(car -> car.getPosition() == maxPosition).toList();
         String winnerName = winner.stream().map(Car::getName).reduce((a, b) -> a + ", " + b).orElse("");
@@ -78,13 +78,13 @@ public class Application {
         System.out.println("최종 우승자 : " + winnerName);
     }
 
-    private static void validateCarNameInputRegex(String input) {
+     static void validateCarNameInputRegex(String input) {
         if (!input.contains(",")) {
             throw new IllegalArgumentException("자동차 이름은 쉼표(,)로 구분되어야 합니다.");
         }
     }
 
-    private static void validateCarNamesNotBlank(String name) {
+     static void validateCarNamesNotBlank(String name) {
         if (name.trim().isBlank()) {
             throw new IllegalArgumentException("구분자 사이에 자동차 이름이 없습니다.");
         }
